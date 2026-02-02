@@ -29,7 +29,6 @@
 // Reset all attributes
 #define RESET      "\x1B[0m"
 
-// Utility macros (fixed versions)
 #define COLOR_PRINT(color, text) color text RESET
 #define COLOR_PRINTF(color, fmt, ...) printf(color fmt RESET, ##__VA_ARGS__)
 
@@ -39,4 +38,30 @@ void print_success(const char* message);
 void print_warning(const char* message);
 void print_info(const char* message);
 
+
+#ifdef COLORS_IMPLEMENTATION
+
+#include <stdio.h>
+
+void print_colored(const char* color, const char* text) {
+    printf("%s%s%s", color, text, RESET);
+}
+
+void print_error(const char* message) {
+    print_colored(RED, message);
+}
+
+void print_success(const char* message) {
+    print_colored(GRN, message);
+}
+
+void print_warning(const char* message) {
+    print_colored(YEL, message);
+}
+
+void print_info(const char* message) {
+    print_colored(BLU, message);
+}
+
+#endif
 #endif // COLORS_H

@@ -1,5 +1,8 @@
-#include "colors.h"
 #include <stdio.h>
+
+
+#define COLORS_IMPLEMENTATION
+#include "colors.h"
 
 int main() {
     // Using macros directly
