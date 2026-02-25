@@ -1,4 +1,4 @@
-## This file is a general .xdc for the Basys3 rev B board
+## This file is a general .xdc for the Basys3 rev B board (XC7a35tcpg236-1)
 ## https://digilent.com/reference/_media/basys3:basys3_rm.pdf
 ## Clock signal
 set_property -dict { PACKAGE_PIN W5 IOSTANDARD LVCMOS33 } [get_ports clk]
