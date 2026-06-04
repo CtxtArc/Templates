@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="YOUR_PROJECT_NAME" default="run" basedir=".">
+
+    <property name="src.dir" value="src" />
+    <property name="classes.dir" value="classes" />
+    <property name="doc.dir" value="doc" />
+    <property name="jar.name" value="YOUR_APP_NAME-1.0.jar" />
+    <property name="main.class" value="com.yourpackage.MainClass" />
+    
+    <property name="java.source.version" value="21" />
+    <property name="java.target.version" value="21" />
+
+    <target name="compile" description="Creates the classes directory and compiles all source code">
+        <mkdir dir="${classes.dir}" />
+        <javac srcdir="${src.dir}" 
+               destdir="${classes.dir}" 
+               includeantruntime="false" 
+               source="${java.source.version}" 
+               target="${java.target.version}"/>
+    </target>
+
+    <target name="package" depends="compile" description="Creates the executable JAR archive at the root">
+        <jar destfile="${jar.name}" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main.class}" />
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run" depends="package" description="Executes the generated JAR archive">
+        <echo message="Executing ${jar.name} (Launching ${main.class})..." />
+        <java jar="${jar.name}" fork="true" failonerror="true">
+            <assertions>
+                <enable/>
+            </assertions>
+        </java>
+    </target>
+
+    <target name="javadoc" description="Generates the Javadoc documentation">
+        <mkdir dir="${doc.dir}" />
+        <javadoc sourcepath="${src.dir}" destdir="${doc.dir}" packagenames="*" />
+    </target>
+
+    <target name="clean" description="Removes compiled class files and the JAR archive">
+        <delete dir="${classes.dir}" />
+        <delete file="${jar.name}" />
+    </target>
+	
+    <target name="cleanjavadoc" description="Removes the javadoc documentation directory">
+        <delete dir="${doc.dir}" />
+    </target>
+
+    <target name="clean-all" depends="clean, cleanjavadoc" description="Removes all generated build and documentation files">
+        <echo message="Global cleanup completed successfully." />
+    </target>
+
+</project>
